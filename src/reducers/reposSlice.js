@@ -4,7 +4,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   items: [],
   isFetching: true,
-  count: 0,
 };
 
 // Создание слайса
@@ -12,15 +11,18 @@ const reposSlice = createSlice({
   name: 'repos',
   initialState,
   reducers: {
-    setCount(state, action) {
-      state.count = action.payload;
+    setRepos(state, action) {
+      state.items = action.payload.items;
+			state.isFetching = false;
     },
-    // Другие редюсеры можно добавить здесь
+		setIsFetching(state, action) {
+			state.isFetching = action.payload
+		}
   },
 });
 
 // Экспорт действий
-export const { setCount } = reposSlice.actions;
+export const { setRepos, setIsFetching } = reposSlice.actions;
 
 // Экспорт редуктора
 export default reposSlice.reducer;
