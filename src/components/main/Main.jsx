@@ -5,6 +5,7 @@ import { getRepos } from '../actions/repos'
 import Repo from './repo/Repo'
 import { setCurrentPage } from '../../reducers/reposSlice'
 import { createPage } from '../../utils/pageCounter'
+import { useNavigate } from 'react-router-dom'
 
 const Main = () => {
 	const dispatch = useDispatch()
@@ -13,24 +14,39 @@ const Main = () => {
 	const currentPage = useSelector(state => state.repos.currentPage)
 	const totalCount = useSelector(state => state.repos.totalCount)
 	const perPage = useSelector(state => state.repos.perPage)
+	const isFetchError = useSelector(state => state.repos.isFetchError)
 	const [searchValue, setSearchValue] = useState('')
-	const pageCount = Math.ceil(totalCount/perPage)
+	const navigate = useNavigate()
+	const pageCount = Math.ceil(totalCount / perPage)
 	const pages = []
+
 
 	createPage(pages, pageCount, currentPage)
 
 	useEffect(() => {
 		dispatch(getRepos(searchValue, currentPage, perPage))
-	}, [currentPage]
-	)
+	}, [currentPage])
+
+
+	// useEffect(() => {
+	// if(isFetchError) {
+	// 	navigate('/error')
+	// }}, [isFetchError])
 
 	function searchHandler() {
 		dispatch(setCurrentPage(1))
 		dispatch(getRepos(searchValue))
 	}
 
+
+
 	return (
 		<div>
+			{isFetchError && 
+			<div class="alert alert-danger" role="alert">
+				Произошла ошибка! Пожалуйста, обновите страницу
+			</div>
+			}
 			<div className="search">
 				<input value={searchValue}
 					onChange={(e) => setSearchValue(e.target.value)}

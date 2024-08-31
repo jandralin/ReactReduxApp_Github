@@ -3,10 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 // Начальное состояние
 const initialState = {
   items: [],
-  isFetching: true,
+  isFetching: false,
 	currentPage: 1,
 	perPage: 10,
 	totalCount: 0,
+	isFetchError: false
 };
 
 // Создание слайса
@@ -24,12 +25,15 @@ const reposSlice = createSlice({
 		},
 		setCurrentPage(state, action) {
 			state.currentPage = action.payload
+		},
+		setFetchError(state, action) {
+			state.isFetchError = action.payload
 		}
   },
 });
 
 // Экспорт действий
-export const { setRepos, setIsFetching, setCurrentPage} = reposSlice.actions;
+export const { setRepos, setIsFetching, setCurrentPage, setFetchError} = reposSlice.actions;
 
 // Экспорт редуктора
 export default reposSlice.reducer;
