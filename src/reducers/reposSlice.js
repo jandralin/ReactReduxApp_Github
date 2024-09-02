@@ -5,7 +5,7 @@ const initialState = {
   items: [],
   isFetching: false,
 	currentPage: 1,
-	perPage: 10,
+	perPage: 12,
 	totalCount: 0,
 	isFetchError: false
 };

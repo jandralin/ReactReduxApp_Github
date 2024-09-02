@@ -41,7 +41,11 @@ const Card = () => {
 			</div>
 			:
 			<div className="fetching">
-
+						<div className="loading-dots">
+							<div className="dot"></div>
+							<div className="dot"></div>
+							<div className="dot"></div>
+						</div>
 					</div>}
 		</div>
 	)

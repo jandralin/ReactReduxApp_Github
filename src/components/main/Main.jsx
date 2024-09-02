@@ -6,6 +6,7 @@ import Repo from './repo/Repo'
 import { setCurrentPage } from '../../reducers/reposSlice'
 import { createPage } from '../../utils/pageCounter'
 import { useNavigate } from 'react-router-dom'
+import repoImg from "../../img/repo.png"
 
 const Main = () => {
 	const dispatch = useDispatch()
@@ -42,26 +43,36 @@ const Main = () => {
 
 	return (
 		<div>
-			{isFetchError && 
-			<div class="alert alert-danger" role="alert">
-				Произошла ошибка! Пожалуйста, обновите страницу
-			</div>
+			{isFetchError &&
+				<div class="alert alert-danger" role="alert">
+					Произошла ошибка! Пожалуйста, обновите страницу!
+				</div>
 			}
 			<div className="search">
-				<input value={searchValue}
-					onChange={(e) => setSearchValue(e.target.value)}
-					type="text" placeholder="Input repo name" className="search-input" />
+				<div className="search-input-container">
+					<img className="search-input-icon" src={repoImg} alt="repo-imp" />
+					<input value={searchValue}
+						onChange={(e) => setSearchValue(e.target.value)}
+						type="text" placeholder="Enter repository name" className="search-input" />
+				</div>
 				<button onClick={() => searchHandler()} className="search-btn">Search</button>
 			</div>
 			{
 				isFetching === false
 					?
-					repos.map(repo =>
-						<Repo repo={repo} key={repo.id} />
-					)
+
+					<div className="cards">
+						{repos.map(repo =>
+							<Repo repo={repo} key={repo.id} />
+						)}
+					</div>
 					:
 					<div className="fetching">
-
+						<div className="loading-dots">
+							<div className="dot"></div>
+							<div className="dot"></div>
+							<div className="dot"></div>
+						</div>
 					</div>
 			}
 			<div className="pages">
