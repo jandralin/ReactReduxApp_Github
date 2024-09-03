@@ -61,10 +61,21 @@ const Main = () => {
 				isFetching === false
 					?
 
-					<div className="cards">
-						{repos.map(repo =>
-							<Repo repo={repo} key={repo.id} />
+					<div>
+						<div className="cards">
+							{repos.map(repo =>
+								<Repo repo={repo} key={repo.id} />
+							)}
+						</div>
+						<div className="pages">
+						{pages.map((page, index) =>
+							<span key={index}
+								className={currentPage == page ? "current-page" : "page"}
+								onClick={() => dispatch(setCurrentPage(page))}>
+								{page}
+							</span>
 						)}
+						</div>
 					</div>
 					:
 					<div className="fetching">
@@ -75,15 +86,7 @@ const Main = () => {
 						</div>
 					</div>
 			}
-			<div className="pages">
-				{pages.map((page, index) =>
-					<span key={index}
-						className={currentPage == page ? "current-page" : "page"}
-						onClick={() => dispatch(setCurrentPage(page))}>
-						{page}
-					</span>
-				)}
-			</div>
+			
 
 		</div>
 	)
